@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{{ brand }} Valuation Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; color:#222; }
+    .header { border-bottom:2px solid #000; margin-bottom:16px; }
+    .kpi { display:flex; gap:24px; margin:10px 0 20px; }
+    .card { border:1px solid #ccc; padding:12px; border-radius:8px; }
+    h1,h2 { margin: 4px 0; }
+    table { border-collapse: collapse; width:100%; margin-top:10px; }
+    th,td { border:1px solid #ddd; padding:8px; text-align:left; }
+    .value { font-size: 22px; font-weight: bold; }
+    .muted { color:#666; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>{{ brand }} — Dental Practice Valuation</h1>
+    <div class="muted">Date: {{ date }}</div>
+  </div>
+
+  <div class="kpi">
+    <div class="card">
+      <div class="muted">Final Value</div>
+      <div class="value">${{ final_value | round(0) | int | string }}</div>
+    </div>
+    <div class="card">
+      <div class="muted">DCF Value</div>
+      <div class="value">${{ dcf_value | round(0) | int | string }}</div>
+    </div>
+    <div class="card">
+      <div class="muted">Assets + Goodwill</div>
+      <div class="value">${{ asset_total | round(0) | int | string }}</div>
+    </div>
+  </div>
+
+  <h2>Inputs</h2>
+  <table>
+    <tr><th>Collections 2024</th><td>${{ c24 }}</td></tr>
+    <tr><th>Collections 2025</th><td>${{ c25 }}</td></tr>
+    <tr><th>Equipment</th><td>${{ equipment }}</td></tr>
+    <tr><th>Leasehold</th><td>${{ leasehold }}</td></tr>
+    <tr><th>Supplies</th><td>${{ supplies }}</td></tr>
+    <tr><th>Margin %</th><td>{{ (margin*100)|round(0) }}%</td></tr>
+    <tr><th>Growth %</h2><td>{{ (growth*100)|round(0) }}%</td></tr>
+    <tr><th>Discount Rate</th><td>{{ (discount*100)|round(0) }}%</td></tr>
+  </table>
+
+  <h2>Method Summary</h2>
+  <table>
+    <tr><th>Weighted Revenue</th><td>${{ weighted_revenue | round(0) | int | string }}</td></tr>
+    <tr><th>Goodwill</th><td>${{ goodwill | round(0) | int | string }}</td></tr>
+    <tr><th>Tangible Assets</th><td>${{ tangible | round(0) | int | string }}</td></tr>
+    <tr><th>Asset Total</th><td>${{ asset_total | round(0) | int | string }}</td></tr>
+    <tr><th>DCF Value</th><td>${{ dcf_value | round(0) | int | string }}</td></tr>
+    <tr><th>Final Value (Average)</th><td class="value">${{ final_value | round(0) | int | string }}</td></tr>
+  </table>
+
+  <h2>Rationale & Notes</h2>
+  <ul>
+    {% for line in rationale %}
+      <li>{{ line }}</li>
+    {% endfor %}
+  </ul>
+
+  <p class="muted">This automated report is for decision support and relies on inputs provided by the user.</p>
+</body>
+</html>
