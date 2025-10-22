@@ -5,5 +5,3 @@ Jinja2==3.1.4
 xhtml2pdf==0.2.15
 python-multipart==0.0.9
 typing-extensions>=4.12.2
-reportlab==4.2.2
-requests==2.32.3
